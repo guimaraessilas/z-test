@@ -1,19 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
   TouchableHighlight,
+  Alert,
 } from "react-native";
 import Header from "../components/Header";
 
 const HomeScreen = () => {
+  const [address, setAddress] = useState("");
+  const [position, setPosition] = useState({});
+
   function handleSearch() {
-    //TODO: BUSCAR LAT E LONG POR ENDEREÇO
-    //TODO: BUSCAR DISTRIBUIDORES PROXIMOS A MIM
-    //TODO: ENVIAR ID DOS DISTRIBUIDORES PARA A PROXIMA TELA
-    alert("TODO");
+    const urlBase =
+      "https://maps.googleapis.com/maps/api/geocode/json?address=";
+    const apiKey = "&key=AIzaSyCwUZdS5HbYDe-Ycb7_vPS10nP4sGs5NPg";
+
+    if (address) {
+      var url = urlBase + address.split(" ").join("+") + apiKey;
+      fetch(url)
+        .then((response) => response.json())
+        .then((json) => {
+          if (json.status === "OK") {
+            setPosition(JSON.stringify(json.results[0].geometry.location));
+            Alert.alert(position);
+            //TODO: BUSCAR DISTRIBUIDORES PROXIMOS A MIM
+            //TODO: ENVIAR ID DOS DISTRIBUIDORES PARA A PROXIMA TELA
+          } else {
+            Alert.alert(
+              "Ops...",
+              "Houve um erro ao realizar a pesquisa... Verifique a conexão e tente novamente!"
+            );
+          }
+        })
+        .catch(() =>
+          Alert.alert(
+            "Ops...",
+            "Houve um erro ao realizar a pesquisa... Verifique a conexão e tente novamente!"
+          )
+        );
+    } else {
+      Alert.alert("Atenção!", "Você esqueceu de digitar o seu endereço.");
+    }
   }
 
   return (
@@ -24,12 +54,13 @@ const HomeScreen = () => {
         <TextInput
           placeholder="Digite seu endereço aqui"
           style={styles.inputAddress}
+          onChangeText={(addr) => setAddress(addr)}
         />
         <TouchableHighlight
           style={styles.searchButton}
           onPress={() => handleSearch()}
         >
-          <Text style={styles.textButton}>Buscar </Text>
+          <Text style={styles.textButton}>Buscar</Text>
         </TouchableHighlight>
         {/** //TODO: ADICIONAR RODAPÉ COM VALOR TOTAL DO CARRINHO */}
       </View>
