@@ -10,31 +10,19 @@ import {
 } from "react-native";
 import Header from "../components/Header";
 
-//TODO: RECEBER ID DO DISTRIBUIDOR
 //TODO: BUSCAR PRODUTOS VIA GRAPHQL
-const ProductListScreen = () => {
+const ProductListScreen = ({ route, navigation }) => {
+  const { storeData } = route.params;
+
   const produtos = [
     { title: "Titulo 1", price: 11.5 },
     { title: "Titulo 2", price: 12.5 },
-    { title: "Titulo 3", price: 13.5 },
-    { title: "Titulo 4", price: 14.5 },
-    { title: "Titulo 5", price: 15.5 },
-    { title: "Titulo 6", price: 11.5 },
-    { title: "Titulo 7", price: 12.5 },
-    { title: "Titulo 8", price: 13.5 },
-    { title: "Titulo 9", price: 14.5 },
     { title: "Titulo 10", price: 15.5 },
   ];
-
-  //TODO: BUSCAR CATEGORIAS VIA GRAPHQL
-  let categorias = [
-    { title: "categoria 1" },
-    { title: "categoria 2" },
-    { title: "categoria 3" },
-  ];
+  console.log(storeData);
   return (
     <View style={styles.container}>
-      <Header />
+      <Header title="Zéca Chaceiro" />
       {/** //TODO: DESENVOLVER UMA FORMA DE REALIZAR O FILTRO */}
       <View style={styles.searchContainer}>
         {/** //TODO: REALIZAR PESQUISA POR TEXTO E POR FILTRO NO SERVIDOR */}
@@ -42,6 +30,7 @@ const ProductListScreen = () => {
         {/** //TODO: ADICIONAR ÍCONE PARA FILTRO */}
         {/** //TODO: ADICIONAR ÍCONE PARA PESQUISAR */}
       </View>
+
       <FlatList
         style={styles.list}
         data={produtos}

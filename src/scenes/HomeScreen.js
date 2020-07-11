@@ -6,49 +6,54 @@ import {
   TextInput,
   TouchableHighlight,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import Header from "../components/Header";
+import { useLazyQuery } from "react-apollo";
+import gql from "graphql-tag";
+import { getLocation } from "../services/maps-service";
 
-const HomeScreen = () => {
+const GET_PLACES = gql`
+  query pocSearchMethod(
+    $now: DateTime!
+    $algorithm: String!
+    $lat: String!
+    $long: String!
+  ) {
+    pocSearch(now: $now, algorithm: $algorithm, lat: $lat, long: $long) {
+      id
+    }
+  }
+`;
+
+const HomeScreen = ({ navigation }) => {
   const [address, setAddress] = useState("");
-  const [position, setPosition] = useState({});
+  const [loadStore, { called, loading, data }] = useLazyQuery(GET_PLACES);
 
   function handleSearch() {
-    const urlBase =
-      "https://maps.googleapis.com/maps/api/geocode/json?address=";
-    const apiKey = "&key=AIzaSyCwUZdS5HbYDe-Ycb7_vPS10nP4sGs5NPg";
-
     if (address) {
-      var url = urlBase + address.split(" ").join("+") + apiKey;
-      fetch(url)
-        .then((response) => response.json())
-        .then((json) => {
-          if (json.status === "OK") {
-            setPosition(JSON.stringify(json.results[0].geometry.location));
-            Alert.alert(position);
-            //TODO: BUSCAR DISTRIBUIDORES PROXIMOS A MIM
-            //TODO: ENVIAR ID DOS DISTRIBUIDORES PARA A PROXIMA TELA
-          } else {
-            Alert.alert(
-              "Ops...",
-              "Houve um erro ao realizar a pesquisa... Verifique a conexão e tente novamente!"
-            );
-          }
-        })
-        .catch(() =>
-          Alert.alert(
-            "Ops...",
-            "Houve um erro ao realizar a pesquisa... Verifique a conexão e tente novamente!"
-          )
-        );
+      getLocation(address).then((res) => {
+        loadStore({
+          variables: {
+            algorithm: "NEAREST",
+            lat: JSON.parse(res).lat.toString(),
+            long: JSON.parse(res).lng.toString(),
+            now: new Date().toISOString(),
+          },
+        });
+      });
     } else {
-      Alert.alert("Atenção!", "Você esqueceu de digitar o seu endereço.");
+      Alert.alert("Atenção", "Você esqueceu de digitar o seu endereço...");
     }
+  }
+
+  if (data) {
+    navigation.navigate("Product", { storeData: data.pocSearch });
   }
 
   return (
     <View style={styles.container}>
-      <Header />
+      <Header title={"Zé Cachaceiro"} />
       <View style={styles.content}>
         <Text style={styles.title}>Hey, onde vamos beber hoje?</Text>
         <TextInput
@@ -59,8 +64,13 @@ const HomeScreen = () => {
         <TouchableHighlight
           style={styles.searchButton}
           onPress={() => handleSearch()}
+          disabled={loading}
         >
-          <Text style={styles.textButton}>Buscar</Text>
+          {loading ? (
+            <ActivityIndicator size="small" color="blue" />
+          ) : (
+            <Text style={styles.textButton}>Buscar</Text>
+          )}
         </TouchableHighlight>
         {/** //TODO: ADICIONAR RODAPÉ COM VALOR TOTAL DO CARRINHO */}
       </View>
