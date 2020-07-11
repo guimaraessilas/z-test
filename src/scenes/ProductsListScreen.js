@@ -1,63 +1,71 @@
-import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  FlatList,
-  Dimensions,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TextInput, FlatList } from "react-native";
 import Header from "../components/Header";
+import { useQuery } from "react-apollo";
+import gql from "graphql-tag";
+import Card from "../components/Card";
 
-//TODO: BUSCAR PRODUTOS VIA GRAPHQL
+const GET_CATEGORIES = gql`
+  query allCategoriesSearch {
+    allCategory {
+      title
+      id
+    }
+  }
+`;
+
+const GET_PRODUCTS = gql`
+  query poc($id: ID!, $categoryId: Int, $search: String) {
+    poc(id: $id) {
+      id
+      products(categoryId: $categoryId, search: $search) {
+        id
+        title
+        images {
+          url
+        }
+        productVariants {
+          price
+        }
+      }
+    }
+  }
+`;
+
 const ProductListScreen = ({ route, navigation }) => {
   const { storeData } = route.params;
+  const [search, setSearch] = useState("");
+  const params = {
+    id: storeData[0].id,
+    search: search,
+    categoryId: null,
+  };
+  const { loading, error, data } = useQuery(GET_PRODUCTS, {
+    variables: params,
+  });
 
-  const produtos = [
-    { title: "Titulo 1", price: 11.5 },
-    { title: "Titulo 2", price: 12.5 },
-    { title: "Titulo 10", price: 15.5 },
-  ];
-  console.log(storeData);
+  if (loading) {
+    console.log("variables: ", params);
+    return <Text>carregando...</Text>;
+  }
+  if (error) {
+    console.log(error);
+    return <Text>Erro ao buscar os produtos...</Text>;
+  }
+
   return (
     <View style={styles.container}>
       <Header title="Zéca Chaceiro" />
-      {/** //TODO: DESENVOLVER UMA FORMA DE REALIZAR O FILTRO */}
       <View style={styles.searchContainer}>
-        {/** //TODO: REALIZAR PESQUISA POR TEXTO E POR FILTRO NO SERVIDOR */}
         <TextInput style={styles.searchInput} placeholder="Pesquisar" />
-        {/** //TODO: ADICIONAR ÍCONE PARA FILTRO */}
-        {/** //TODO: ADICIONAR ÍCONE PARA PESQUISAR */}
       </View>
 
       <FlatList
         style={styles.list}
-        data={produtos}
+        data={data.poc.products}
         numColumns={2}
-        renderItem={({ item }) => Card(item)}
+        renderItem={({ item }) => <Card product={item} />}
       />
-    </View>
-  );
-};
-
-const Card = (produto) => {
-  return (
-    <View style={styles.card}>
-      <Text style={styles.cardTitle}>{produto.title}</Text>
-      <Text styles={styles.cardPrice}>
-        R$
-        {produto.price}
-      </Text>
-      <View style={styles.cardFooter}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>-</Text>
-        </TouchableOpacity>
-        <Text>0</Text>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>+</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
@@ -88,47 +96,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#BDBDBD",
     flex: 1,
     paddingHorizontal: 5,
-  },
-  card: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "space-around",
-    backgroundColor: "white",
-    marginHorizontal: 2,
-    marginVertical: 5,
-    height: 160,
-    width: Dimensions.get("window").width / 2.1,
-    borderRadius: 5,
-    padding: 5,
-  },
-  cardTitle: {
-    fontSize: 26,
-    fontWeight: "bold",
-    textAlign: "center",
-    color: "#212121",
-  },
-  cardPrice: {
-    fontSize: 14,
-    color: "#757575",
-    textAlign: "center",
-  },
-  cardFooter: {
-    flexDirection: "row",
-    width: "70%",
-    alignItems: "center",
-    justifyContent: "space-around",
-  },
-  button: {
-    height: 40,
-    width: 40,
-    borderRadius: 100,
-    backgroundColor: "#757575",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonText: {
-    textAlign: "center",
-    fontSize: 30,
-    color: "white",
   },
 });

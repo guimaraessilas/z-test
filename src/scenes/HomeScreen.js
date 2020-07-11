@@ -11,7 +11,7 @@ import {
 import Header from "../components/Header";
 import { useLazyQuery } from "react-apollo";
 import gql from "graphql-tag";
-import { getLocation } from "../services/maps-service";
+import { getLocation } from "../utils/maps-service";
 
 const GET_PLACES = gql`
   query pocSearchMethod(
