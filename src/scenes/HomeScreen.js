@@ -53,7 +53,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Header title={"Zé Cachaceiro"} />
+      <Header />
       <View style={styles.content}>
         <Text style={styles.title}>Hey, onde vamos beber hoje?</Text>
         <TextInput

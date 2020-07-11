@@ -25,6 +25,8 @@ const Card = (props) => {
     );
   };
 
+  const [qtd, setQtd] = useState(0);
+
   return (
     <View style={styles.card}>
       <CardImage style={styles.imageCard} src={props.product.images[0].url} />
@@ -33,11 +35,14 @@ const Card = (props) => {
         {numberToBLR(props.product.productVariants[0].price)}
       </Text>
       <View style={styles.cardFooter}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => qtd > 0 && setQtd(qtd - 1)}
+        >
           <Text style={styles.buttonText}>-</Text>
         </TouchableOpacity>
-        <Text>0</Text>
-        <TouchableOpacity style={styles.button}>
+        <Text>{qtd}</Text>
+        <TouchableOpacity style={styles.button} onPress={() => setQtd(qtd + 1)}>
           <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
       </View>

@@ -5,15 +5,6 @@ import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
 import Card from "../components/Card";
 
-const GET_CATEGORIES = gql`
-  query allCategoriesSearch {
-    allCategory {
-      title
-      id
-    }
-  }
-`;
-
 const GET_PRODUCTS = gql`
   query poc($id: ID!, $categoryId: Int, $search: String) {
     poc(id: $id) {
@@ -34,31 +25,27 @@ const GET_PRODUCTS = gql`
 
 const ProductListScreen = ({ route, navigation }) => {
   const { storeData } = route.params;
-  const [search, setSearch] = useState("");
+
   const params = {
     id: storeData[0].id,
-    search: search,
+    search: "",
     categoryId: null,
   };
+
   const { loading, error, data } = useQuery(GET_PRODUCTS, {
     variables: params,
   });
 
   if (loading) {
-    console.log("variables: ", params);
     return <Text>carregando...</Text>;
   }
   if (error) {
-    console.log(error);
     return <Text>Erro ao buscar os produtos...</Text>;
   }
 
   return (
     <View style={styles.container}>
-      <Header title="Zéca Chaceiro" />
-      <View style={styles.searchContainer}>
-        <TextInput style={styles.searchInput} placeholder="Pesquisar" />
-      </View>
+      <Header />
 
       <FlatList
         style={styles.list}
@@ -66,6 +53,10 @@ const ProductListScreen = ({ route, navigation }) => {
         numColumns={2}
         renderItem={({ item }) => <Card product={item} />}
       />
+
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>Total: R$00.00</Text>
+      </View>
     </View>
   );
 };
@@ -81,20 +72,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 10,
   },
-  searchContainer: {
-    backgroundColor: "#0088cc",
-    width: "100%",
-    height: 80,
-  },
-  searchInput: {
-    backgroundColor: "white",
-    marginHorizontal: 15,
-    borderRadius: 10,
-    padding: 10,
-  },
   list: {
     backgroundColor: "#BDBDBD",
     flex: 1,
     paddingHorizontal: 5,
+  },
+  footer: {
+    height: 70,
+    width: "100%",
+    backgroundColor: "#0088cc",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  footerText: {
+    fontSize: 26,
+    textAlign: "center",
+    color: "white",
+    fontWeight: "700",
   },
 });
