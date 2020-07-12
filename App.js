@@ -2,6 +2,8 @@ import React from "react";
 import Routes from "./Routes";
 import { ApolloProvider } from "react-apollo";
 import { ApolloClient, InMemoryCache, HttpLink } from "apollo-client-preset";
+import { Provider as StoreProvider } from "react-redux";
+import store from "./src/redux/store";
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -12,9 +14,11 @@ const client = new ApolloClient({
 
 const App = () => {
   return (
-    <ApolloProvider client={client}>
-      <Routes />
-    </ApolloProvider>
+    <StoreProvider store={store}>
+      <ApolloProvider client={client}>
+        <Routes />
+      </ApolloProvider>
+    </StoreProvider>
   );
 };
 

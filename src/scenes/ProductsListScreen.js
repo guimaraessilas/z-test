@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, StyleSheet, TextInput, FlatList } from "react-native";
 import Header from "../components/Header";
 import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
 import Card from "../components/Card";
+import Footer from "../components/Footer";
 
 const GET_PRODUCTS = gql`
   query poc($id: ID!, $categoryId: Int, $search: String) {
@@ -54,9 +55,7 @@ const ProductListScreen = ({ route, navigation }) => {
         renderItem={({ item }) => <Card product={item} />}
       />
 
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>Total: R$00.00</Text>
-      </View>
+      <Footer />
     </View>
   );
 };
@@ -76,18 +75,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#BDBDBD",
     flex: 1,
     paddingHorizontal: 5,
-  },
-  footer: {
-    height: 70,
-    width: "100%",
-    backgroundColor: "#0088cc",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  footerText: {
-    fontSize: 26,
-    textAlign: "center",
-    color: "white",
-    fontWeight: "700",
   },
 });

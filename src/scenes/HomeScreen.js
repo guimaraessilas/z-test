@@ -12,6 +12,9 @@ import Header from "../components/Header";
 import { useLazyQuery } from "react-apollo";
 import gql from "graphql-tag";
 import { getLocation } from "../utils/maps-service";
+import Footer from "../components/Footer";
+import { useDispatch } from "react-redux";
+import { cleanStore } from "../redux/actions";
 
 const GET_PLACES = gql`
   query pocSearchMethod(
@@ -29,6 +32,7 @@ const GET_PLACES = gql`
 const HomeScreen = ({ navigation }) => {
   const [address, setAddress] = useState("");
   const [loadStore, { called, loading, data }] = useLazyQuery(GET_PLACES);
+  const dispatch = useDispatch();
 
   function handleSearch() {
     if (address) {
@@ -48,12 +52,14 @@ const HomeScreen = ({ navigation }) => {
   }
 
   if (data) {
+    dispatch(cleanStore());
     navigation.navigate("Product", { storeData: data.pocSearch });
   }
 
   return (
     <View style={styles.container}>
       <Header />
+
       <View style={styles.content}>
         <Text style={styles.title}>Hey, onde vamos beber hoje?</Text>
         <TextInput
@@ -72,7 +78,6 @@ const HomeScreen = ({ navigation }) => {
             <Text style={styles.textButton}>Buscar</Text>
           )}
         </TouchableHighlight>
-        {/** //TODO: ADICIONAR RODAPÉ COM VALOR TOTAL DO CARRINHO */}
       </View>
     </View>
   );

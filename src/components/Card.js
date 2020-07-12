@@ -8,6 +8,8 @@ import {
   Image,
 } from "react-native";
 import { numberToBLR } from "../utils/helper";
+import { useDispatch } from "react-redux";
+import { remove, add } from "../redux/actions";
 
 const Card = (props) => {
   const CardImage = (props) => {
@@ -24,8 +26,20 @@ const Card = (props) => {
       />
     );
   };
-
+  const dispatch = useDispatch();
   const [qtd, setQtd] = useState(0);
+
+  const addItem = (price) => {
+    dispatch(add(price));
+    setQtd(qtd + 1);
+  };
+
+  const removeItem = (price) => {
+    if (qtd > 0) {
+      dispatch(remove(price));
+      setQtd(qtd - 1);
+    }
+  };
 
   return (
     <View style={styles.card}>
@@ -37,12 +51,15 @@ const Card = (props) => {
       <View style={styles.cardFooter}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => qtd > 0 && setQtd(qtd - 1)}
+          onPress={() => removeItem(props.product.productVariants[0].price)}
         >
           <Text style={styles.buttonText}>-</Text>
         </TouchableOpacity>
         <Text>{qtd}</Text>
-        <TouchableOpacity style={styles.button} onPress={() => setQtd(qtd + 1)}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => addItem(props.product.productVariants[0].price)}
+        >
           <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
       </View>
