@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should test Footer Component  snapshot render correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#0088cc",
+      "height": 70,
+      "justifyContent": "center",
+      "width": "100%",
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "white",
+        "fontSize": 26,
+        "fontWeight": "700",
+        "textAlign": "center",
+      }
+    }
+  >
+    Total: 
+    R$ 0,00
+  </Text>
+</View>
+`;

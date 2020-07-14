@@ -12,7 +12,6 @@ import Header from "../components/Header";
 import { useLazyQuery } from "react-apollo";
 import gql from "graphql-tag";
 import { getLocation } from "../utils/maps-service";
-import Footer from "../components/Footer";
 import { useDispatch } from "react-redux";
 import { cleanStore } from "../redux/actions";
 

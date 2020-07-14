@@ -1,0 +1,261 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should test ProductListScreen  snapshot render correctly 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#0088cc",
+        "height": 60,
+        "justifyContent": "center",
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 26,
+          "fontWeight": "700",
+        }
+      }
+    >
+      Zeca Chaceiro
+    </Text>
+  </View>
+  <RCTScrollView
+    data={
+      Array [
+        Object {
+          "id": "8868",
+          "images": Array [
+            Object {
+              "url": "https://courier-images-codechallenge.s3-us-west-2.amazonaws.com/product/8868_205f958d-2e51-48a3-b4d5-a2998765571a.jpg",
+            },
+          ],
+          "productVariants": Array [
+            Object {
+              "price": 2.09,
+            },
+          ],
+          "title": "Skol 269ml - Unidade",
+        },
+      ]
+    }
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    style={
+      Object {
+        "backgroundColor": "#BDBDBD",
+        "flex": 1,
+        "paddingHorizontal": 5,
+      }
+    }
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "white",
+                "borderRadius": 5,
+                "flex": 1,
+                "height": 250,
+                "marginHorizontal": 2,
+                "marginVertical": 5,
+                "padding": 5,
+                "width": 357.1428571428571,
+              }
+            }
+          >
+            <Image
+              onError={[Function]}
+              source={
+                Object {
+                  "uri": "https://courier-images-codechallenge.s3-us-west-2.amazonaws.com/product/8868_205f958d-2e51-48a3-b4d5-a2998765571a.jpg",
+                }
+              }
+              style={
+                Object {
+                  "flex": 1,
+                  "height": 200,
+                  "resizeMode": "contain",
+                  "width": "100%",
+                }
+              }
+            />
+            <Text
+              style={
+                Object {
+                  "color": "#212121",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                }
+              }
+            >
+              Skol 269ml - Unidade
+            </Text>
+            <Text
+              styles={
+                Object {
+                  "color": "#757575",
+                  "fontSize": 14,
+                  "textAlign": "center",
+                }
+              }
+            >
+              R$ 2,09
+            </Text>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "justifyContent": "space-around",
+                  "width": "70%",
+                }
+              }
+            >
+              <View
+                accessible={true}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "#757575",
+                    "borderRadius": 100,
+                    "height": 40,
+                    "justifyContent": "center",
+                    "opacity": 1,
+                    "width": 40,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "color": "white",
+                      "fontSize": 30,
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  -
+                </Text>
+              </View>
+              <Text>
+                0
+              </Text>
+              <View
+                accessible={true}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "#757575",
+                    "borderRadius": 100,
+                    "height": 40,
+                    "justifyContent": "center",
+                    "opacity": 1,
+                    "width": 40,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "color": "white",
+                      "fontSize": 30,
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  +
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#0088cc",
+        "height": 70,
+        "justifyContent": "center",
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 26,
+          "fontWeight": "700",
+          "textAlign": "center",
+        }
+      }
+    >
+      Total: 
+      R$ 0,00
+    </Text>
+  </View>
+</View>
+`;

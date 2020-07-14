@@ -6,7 +6,7 @@ import gql from "graphql-tag";
 import Card from "../components/Card";
 import Footer from "../components/Footer";
 
-const GET_PRODUCTS = gql`
+export const GET_PRODUCTS = gql`
   query poc($id: ID!, $categoryId: Int, $search: String) {
     poc(id: $id) {
       id
