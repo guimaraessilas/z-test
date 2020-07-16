@@ -10,23 +10,10 @@ import {
 } from "react-native";
 import Header from "../components/Header";
 import { useLazyQuery } from "react-apollo";
-import gql from "graphql-tag";
 import { getLocation } from "../utils/maps-service";
 import { useDispatch } from "react-redux";
 import { cleanStore } from "../redux/actions";
-
-const GET_PLACES = gql`
-  query pocSearchMethod(
-    $now: DateTime!
-    $algorithm: String!
-    $lat: String!
-    $long: String!
-  ) {
-    pocSearch(now: $now, algorithm: $algorithm, lat: $lat, long: $long) {
-      id
-    }
-  }
-`;
+import { GET_PLACES } from "../utils/queries";
 
 const HomeScreen = ({ navigation }) => {
   const [address, setAddress] = useState("");

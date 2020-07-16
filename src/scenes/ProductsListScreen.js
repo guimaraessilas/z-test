@@ -2,27 +2,9 @@ import React from "react";
 import { View, Text, StyleSheet, TextInput, FlatList } from "react-native";
 import Header from "../components/Header";
 import { useQuery } from "react-apollo";
-import gql from "graphql-tag";
 import Card from "../components/Card";
 import Footer from "../components/Footer";
-
-export const GET_PRODUCTS = gql`
-  query poc($id: ID!, $categoryId: Int, $search: String) {
-    poc(id: $id) {
-      id
-      products(categoryId: $categoryId, search: $search) {
-        id
-        title
-        images {
-          url
-        }
-        productVariants {
-          price
-        }
-      }
-    }
-  }
-`;
+import { GET_PRODUCTS } from "../utils/queries";
 
 const ProductListScreen = ({ route, navigation }) => {
   const { storeData } = route.params;
